@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Spotify Song Raindrops</title>
+<title>Munni</title>
 <style>
     body, html {
         margin: 0;
@@ -12,16 +12,15 @@
         overflow: hidden;
         background-color: #1DB954; /* Spotify green background */
     }
-.raindrop {
+    .raindrop {
         position: absolute;
         width: 200px; /* Set the width of the raindrop */
         height: 48px; /* Set the height of the raindrop */
-        background-size: cover  ;
+        background-size: cover;
         background-repeat: no-repeat;
-        background-position:  cover ;
+        background-position: cover;
         animation: fall 15s linear infinite; /* Adjust animation duration (10s) */
     }
-
     @keyframes fall {
         0% {
             transform: translateY(-100vh); /* Start above the viewport */
@@ -32,9 +31,23 @@
             opacity: 1;
         }
     }
+    #playButton {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: transparent;
+        border: none;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+        z-index: 10;
+    }
 </style>
 </head>
 <body>
+<audio id="myAudio" src="make.mp3" loop></audio>
+<button id="playButton">▶️ Play</button>
 <script>
     // Array of Spotify song image URLs
     const songs = [
@@ -48,30 +61,25 @@
         'p (71).jpg', 'p (72).jpg', 'p (73).jpg', 'p (74).jpg', 'p (75).jpg', 'p (76).jpg', 'p (77).jpg', 'p (78).jpg', 'p (79).jpg', 'p (80).jpg',
         'p (81).jpg', 'p (82).jpg', 'p (83).jpg', 'p (84).jpg', 'p (85).jpg', 'p (86).jpg', 'p (87).jpg', 'p (88).jpg', 'p (89).jpg'
     ];
-
     function createRaindrop(song) {
         const raindrop = document.createElement('div');
         raindrop.classList.add('raindrop');
         raindrop.style.backgroundImage = `url('${song}')`;
         document.body.appendChild(raindrop);
-
-        // Randomize starting position and animation del20
-        raindrop.style.left = `${Math.random() * (window.innerWidth - 80)}px`; // Adjust width for random placement
-        raindrop.style.animationDelay = `${Math.random() * 75}s`; // Adjust delay range as needed
+        raindrop.style.left = `${Math.random() * (window.innerWidth - 80)}px`;
+        raindrop.style.animationDelay = `${Math.random() * 15}s`; // Adjust delay range
     }
-
     function startRain() {
         songs.forEach(song => {
             createRaindrop(song);
         });
     }
-
-    startRain();
+    document.getElementById('playButton').addEventListener('click', function() {
+        startRain();
+        const audio = document.getElementById('myAudio');
+        audio.play();
+    });
 </script>
 </body>
 </html>
 
-
-
-</head>
-</html>
